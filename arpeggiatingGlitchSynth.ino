@@ -3,11 +3,18 @@
  * Mozzi Mod By Turbogoblin/Nugetteero.
  * Code cleaned up a bit by STAR*TRASH ELECTRONICS
  * 
- * Pots on 4,3,2 
- * LDR on 1,2
- * Button on 12,4,5,8
- * LEDs on 7,11
- * Audio out on 9
+ * Analog 0   - RobotGeek Light Sensor
+ * Analog 1   - RobotGeek Light Sensor
+ * Analog 2   - RobotGeek Rotation Knob
+ * Analog 3   - RobotGeek Rotation Knob
+ * Analog 4   - RobotGeek Rotation Knob
+ * Digital 4  - RobotGeek Pushbutton
+ * Digital 5  - RobotGeek Pushbutton
+ * Digital 8  - RobotGeek Pushbutton
+ * Digital 12 - RobotGeek Pushbutton
+ * Digital 7  - RobotGeek LED Driver (Green LED)
+ * Digital 11 - RobotGeek LED Driver (Red LED)
+ * Digital 9  - Audio Output (Jumpers to Audio Jack)
  *
  *************************************************/
 
