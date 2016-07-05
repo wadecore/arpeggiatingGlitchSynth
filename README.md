@@ -1,9 +1,9 @@
 # arpeggiatingGlitchSynth
 Cleaned up code for a Mozzi Mod by Turbogoblin/Nugetteero.
 Requires Mozzi Library for Arduino. Tested on RobotGeek Geekduino.
-Found in this thread: https://www.reddit.com/r/arduino/comments/4q3jq3/pure_arduinomicro_synth_op_comes_through_with_the/
-Original Code found here: http://pastie.org/10891807
-Relies on Mozzi Library found here: http://sensorium.github.io/Mozzi/
+- Found in this thread: https://www.reddit.com/r/arduino/comments/4q3jq3/pure_arduinomicro_synth_op_comes_through_with_the/
+- Original Code found here: http://pastie.org/10891807
+- Relies on Mozzi Library found here: http://sensorium.github.io/Mozzi/
 
 # Parts List:
 - 1x RobotGeek Light Sensor (optional, can use Voltage Divider and FSR instead) http://www.robotgeek.com/robotgeek-light-sensor
