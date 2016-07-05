@@ -1,46 +1,46 @@
- /*************************************************
- * Arpeggiating Glitch Synth
- * Mozzi Mod By Turbogoblin/Nugetteero.
- * Code cleaned up a bit by STAR*TRASH ELECTRONICS
- * 
- * Analog 0   - RobotGeek Light Sensor
- * Analog 1   - RobotGeek Light Sensor
- * Analog 2   - RobotGeek Rotation Knob
- * Analog 3   - RobotGeek Rotation Knob
- * Analog 4   - RobotGeek Rotation Knob
- * Digital 4  - RobotGeek Pushbutton
- * Digital 5  - RobotGeek Pushbutton
- * Digital 8  - RobotGeek Pushbutton
- * Digital 12 - RobotGeek Pushbutton
- * Digital 7  - RobotGeek LED Driver (Green LED)
- * Digital 11 - RobotGeek LED Driver (Red LED)
- * Digital 9  - Audio Output (Jumpers to Audio Jack)
- *
- *************************************************/
+ /*********************************************************************
+  *                   Arpeggiating Glitch Synth                       *
+  *              Mozzi Mod By Turbogoblin/Nugetteero.                 *
+  *        Code G-Rated and Washed by STAR*TRASH ELECTRONICS          *
+  ********************************************************************* 
+  * 
+  * INPUTS:
+  * Analog 1   - RobotGeek Light Sensor/RobotGeek Voltage Divider & FSR
+  * Analog 2   - RobotGeek Rotation Knob
+  * Analog 3   - RobotGeek Rotation Knob
+  * Analog 4   - RobotGeek Rotation Knob
+  * Digital 4  - RobotGeek Pushbutton
+  * Digital 5  - RobotGeek Pushbutton
+  * Digital 8  - RobotGeek Pushbutton
+  * Digital 12 - RobotGeek Pushbutton
+  * 
+  * OUTPUTS:
+  * Digital 7  - RobotGeek LED Driver (Green LED)
+  * Digital 11 - RobotGeek LED Driver (Red LED)
+  * Digital 9  - Audio Output (Jumpers to Audio Jack)
+  *
+  *********************************************************************/
 
-int sensorPin = 0;
 #include <WavePacket.h>
 #include <RollingAverage.h>
 #include <AutoMap.h>
 
-const int KNOB_PIN     = 3; // set the input for the knob to analog pin 0
-const int KNOB_PIN_1   = 2;
-const int KNOB_PIN_2   = 4;
-const int LDR1_PIN     = 1; // set the analog input for fm_intensity to pin 1
-const int BUTTON_PIN   = 12;  
-const int BUTTON_PIN_1 = 4; // the number of the pushbutton pin
-const int BUTTON_PIN_2 = 5;
-const int BUTTON_PIN_3 = 8;
-const int LED_PIN      = 11;
-const int LED_PIN_1    = 7;
+const int SENSOR_PIN   = 0; // Pin 0 used for floating value
+const int KNOB_PIN     = 3; // Analog input pin 3
+const int KNOB_PIN_1   = 2; // Analog input pin 2
+const int KNOB_PIN_2   = 4; // Analog input pin 4
+const int LDR1_PIN     = 1; // Analog input for fm_intensity to pin 1
+const int BUTTON_PIN   = 12;// Digital input pin 12
+const int BUTTON_PIN_1 = 4; // Digital input pin 4
+const int BUTTON_PIN_2 = 5; // Digital input pin 5
+const int BUTTON_PIN_3 = 8; // Digital input pin 8
+const int LED_PIN      = 11;// Digital output pin 11  Red LED
+const int LED_PIN_1    = 7; // Digital output pin 7 Green LED
 
 int brightness = 0;    // how bright the LED is
 int fadeAmount = 5; 
 
-// min and max values of synth parameters to map AutoRanged analog inputs to
-const int MIN_F = 10;
-const int MAX_F = 200;
-
+//A mess of variables with silly names but perfectly reasonable functions
 int heck    = 3;
 int dang    = 0;
 int alright = 1;
@@ -54,16 +54,20 @@ int con     = 4;
 int fun     = 1;
 int gosh    = 100;
 
-long randNumber;
+// min and max values of synth parameters to map AutoRanged analog inputs to
+const int MIN_F = 10;
+const int MAX_F = 200;
 const int MIN_BW = 10;
 const int MAX_BW = 1000;
 const int MIN_CF = 60;
 const int MAX_CF = 2000;
+long randNumber;
 
+// variables for reading the pushbutton status
 int buttonState  = 0; 
 int buttonState1 = 0;
 int buttonState2 = 0;
-int buttonState3 = 0;// variable for reading the pushbutton status
+int buttonState3 = 0;
 
 // for smoothing the control signals
 // use: RollingAverage <number_type, how_many_to_average> myThing
@@ -82,7 +86,8 @@ void setup()
   pinMode(BUTTON_PIN_2, INPUT);
   pinMode(BUTTON_PIN_3, INPUT);
   pinMode(LED_PIN, OUTPUT);    
-  pinMode(LED_PIN_1, OUTPUT);    // sets the digital pin as output
+  pinMode(LED_PIN_1, OUTPUT);
+  
   //Serial.begin(9600); // for Teensy 3.1, beware printout can cause glitches
   Serial.begin(115200);
   // wait before starting Mozzi to receive analog reads, so AutoRange will not get 0
@@ -93,7 +98,7 @@ void setup()
 void updateControl()
 {
   int thirdknob = mozziAnalogRead(KNOB_PIN_2)+1;
-  int reading = mozziAnalogRead(sensorPin);  
+  int reading = mozziAnalogRead(SENSOR_PIN);  
   float voltage = reading * 5.0;
   float temperatureC = (voltage - 0.5) * 100 ;
   int knobby = mozziAnalogRead(KNOB_PIN)+1;
